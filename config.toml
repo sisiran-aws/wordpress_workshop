@@ -1,0 +1,16 @@
+baseURL = "http://lightsailworkshop.com/"
+languageCode = "en-us"
+theme = "hugo-theme-learn"
+title = "Getting Started with Docker Containers on Amazon Lightsail"
+uglyurls = true
+
+[params]
+themeVariant = "mine"
+showVisitedLinks = false
+author = "Mike Coleman"
+description = "Amazon Lightsail Workshop"
+disableSearch = true
+disableAssetsBusting = false
+disableLanguageSwitchingButton = true
+disableShortcutsTitle=true
+#
