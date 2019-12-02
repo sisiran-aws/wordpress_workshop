@@ -12,20 +12,20 @@
     <title>Lab Guide :: Getting Started with Docker Containers on Amazon Lightsail</title>
 
     
-    <link href="/css/nucleus.css?1574741363" rel="stylesheet">
-    <link href="/css/fontawesome-all.min.css?1574741363" rel="stylesheet">
-    <link href="/css/hybrid.css?1574741363" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1574741363" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1574741363" rel="stylesheet">
-    <link href="/css/auto-complete.css?1574741363" rel="stylesheet">
-    <link href="/css/atom-one-dark-reasonable.css?1574741363" rel="stylesheet">
-    <link href="/css/theme.css?1574741363" rel="stylesheet">
-    <link href="/css/hugo-theme.css?1574741363" rel="stylesheet">
+    <link href="/css/nucleus.css?1575301592" rel="stylesheet">
+    <link href="/css/fontawesome-all.min.css?1575301592" rel="stylesheet">
+    <link href="/css/hybrid.css?1575301592" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1575301592" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1575301592" rel="stylesheet">
+    <link href="/css/auto-complete.css?1575301592" rel="stylesheet">
+    <link href="/css/atom-one-dark-reasonable.css?1575301592" rel="stylesheet">
+    <link href="/css/theme.css?1575301592" rel="stylesheet">
+    <link href="/css/hugo-theme.css?1575301592" rel="stylesheet">
     
-      <link href="/css/theme-mine.css?1574741363" rel="stylesheet">
+      <link href="/css/theme-mine.css?1575301592" rel="stylesheet">
     
 
-    <script src="/js/jquery-3.3.1.min.js?1574741363"></script>
+    <script src="/js/jquery-3.3.1.min.js?1575301592"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -157,7 +157,7 @@
             
           
           
-            <a href='/'>Amazon Lightsail Workshop</a> > Lab Guide
+            <a href='/'>HA WordPress on Lightsail</a> > Lab Guide
           
          
           
@@ -410,7 +410,7 @@ SECRET_KEY=&lt;Your secret key&gt;
 
 <li><p>The next step is to update your WordPress configuration file (wp-config) with the credentials.</p>
 
-<p>Copy and pastrew the following command:</p>
+<p>Copy and paste the following command:</p>
 
 <pre><code>cat &lt;&lt;EOT &gt;&gt; credfile.txt
 define( 'AS3CF_SETTINGS', serialize( array (
@@ -464,7 +464,7 @@ EOT
 
 <p>You can access the WordPress login screen at <a href="http://SiteIpAddress/wp-admin">http://SiteIpAddress/wp-admin</a>, where SiteIpAddress is the IP address of your WordPress instance, which you can find on the card for your instance in the Lightsail console.</p>
 
-<p><img src="../../images/instance_ip.png?classes=border" alt="" /></p>
+<p><img src="../../images/ip.png?classes=border" alt="" /></p>
 
 <p>For example, the instance in the preceding screenshot has the IP address 192.0.2.0; you can access the login screen using <a href="http://192.0.2.0/wp-admin">http://192.0.2.0/wp-admin</a>.</p>
 
@@ -573,7 +573,7 @@ EOT
 
 <p>The next step is to configure WordPress to use the Lightsail database to store its information (as opposed to the database on the WordPress instance). This will allow mulitiple WordPress servers to share one database, enabling a highly availble setup.</p>
 
-<p>In order to use the Lightsail database you&rsquo;ll need to expor the contents of the local database, then import them into the Lightsail database. After that you will update the WordPress configuration file to point to your Lightsail database</p>
+<p>In order to use the Lightsail database you&rsquo;ll need to export the contents of the local database, then import them into the Lightsail database. After that you will update the WordPress configuration file to point to your Lightsail database</p>
 
 <h5 id="export-the-data-from-the-local-database">Export the data from the local database</h5>
 
@@ -921,19 +921,19 @@ wp config set DB_HOST ls.rds.amazonaws.com
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1574741363"></script>
-    <script src="/js/perfect-scrollbar.min.js?1574741363"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1574741363"></script>
-    <script src="/js/jquery.sticky.js?1574741363"></script>
-    <script src="/js/featherlight.min.js?1574741363"></script>
-    <script src="/js/highlight.pack.js?1574741363"></script>
+    <script src="/js/clipboard.min.js?1575301592"></script>
+    <script src="/js/perfect-scrollbar.min.js?1575301592"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1575301592"></script>
+    <script src="/js/jquery.sticky.js?1575301592"></script>
+    <script src="/js/featherlight.min.js?1575301592"></script>
+    <script src="/js/highlight.pack.js?1575301592"></script>
     <script>hljs.initHighlightingOnLoad();</script>
-    <script src="/js/modernizr.custom-3.6.0.js?1574741363"></script>
-    <script src="/js/learn.js?1574741363"></script>
-    <script src="/js/hugo-learn.js?1574741363"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1575301592"></script>
+    <script src="/js/learn.js?1575301592"></script>
+    <script src="/js/hugo-learn.js?1575301592"></script>
 
-    <link href="/mermaid/mermaid.css?1574741363" rel="stylesheet" />
-    <script src="/mermaid/mermaid.js?1574741363"></script>
+    <link href="/mermaid/mermaid.css?1575301592" rel="stylesheet" />
+    <script src="/mermaid/mermaid.js?1575301592"></script>
     <script>
         mermaid.initialize({ startOnLoad: true });
     </script>
