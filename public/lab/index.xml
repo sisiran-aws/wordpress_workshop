@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Lab Guide on Getting Started with Docker Containers on Amazon Lightsail</title>
+    <title>Lab Guide on Highly Available WordPress on Amazon Lightsail</title>
     <link>http://lightsailworkshop.com/lab.html</link>
-    <description>Recent content in Lab Guide on Getting Started with Docker Containers on Amazon Lightsail</description>
+    <description>Recent content in Lab Guide on Highly Available WordPress on Amazon Lightsail</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     

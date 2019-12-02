@@ -9,4 +9,4 @@ weight: 1
 
 # HA WordPress on Amazon Lightsail
 
-### @mikegcoleman
+

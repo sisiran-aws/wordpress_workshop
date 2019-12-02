@@ -1,7 +1,7 @@
 baseURL = "http://lightsailworkshop.com/"
 languageCode = "en-us"
 theme = "hugo-theme-learn"
-title = "Getting Started with Docker Containers on Amazon Lightsail"
+title = "Highly Available WordPress on Amazon Lightsail"
 uglyurls = true
 
 [params]
