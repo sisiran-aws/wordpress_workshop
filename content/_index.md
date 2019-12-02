@@ -1,5 +1,5 @@
 ---
-title: "Amazon Lightsail Workshop"
+title: "HA WordPress on Lightsail"
 chapter: true
 weight: 1
 ---

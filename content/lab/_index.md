@@ -157,7 +157,7 @@ Now you need to store the IAM credentials in your WordPress configfuration file 
 
 * The next step is to update your WordPress configuration file (wp-config) with the credentials.
 
-    Copy and pastrew the following command:
+    Copy and paste the following command:
 
         cat <<EOT >> credfile.txt
         define( 'AS3CF_SETTINGS', serialize( array (
@@ -204,7 +204,7 @@ The next step requires you to log in to the WordPress dashboard, and to do that 
 
     You can access the WordPress login screen at http://SiteIpAddress/wp-admin, where SiteIpAddress is the IP address of your WordPress instance, which you can find on the card for your instance in the Lightsail console.
 
-    ![](../../images/instance_ip.png?classes=border)
+    ![](../../images/ip.png?classes=border)
 
     For example, the instance in the preceding screenshot has the IP address 192.0.2.0; you can access the login screen using http://192.0.2.0/wp-admin.
 
@@ -302,7 +302,7 @@ Now any media files uploaded to your WordPress site will be stored in a centrali
 
 The next step is to configure WordPress to use the Lightsail database to store its information (as opposed to the database on the WordPress instance). This will allow mulitiple WordPress servers to share one database, enabling a highly availble setup. 
 
-In order to use the Lightsail database you'll need to expor the contents of the local database, then import them into the Lightsail database. After that you will update the WordPress configuration file to point to your Lightsail database
+In order to use the Lightsail database you'll need to export the contents of the local database, then import them into the Lightsail database. After that you will update the WordPress configuration file to point to your Lightsail database
 
 ##### Export the data from the local database
 
