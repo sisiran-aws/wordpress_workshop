@@ -12,20 +12,20 @@
     <title>Lab Guide :: Highly Available WordPress on Amazon Lightsail</title>
 
     
-    <link href="/css/nucleus.css?1575509944" rel="stylesheet">
-    <link href="/css/fontawesome-all.min.css?1575509944" rel="stylesheet">
-    <link href="/css/hybrid.css?1575509944" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1575509944" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1575509944" rel="stylesheet">
-    <link href="/css/auto-complete.css?1575509944" rel="stylesheet">
-    <link href="/css/atom-one-dark-reasonable.css?1575509944" rel="stylesheet">
-    <link href="/css/theme.css?1575509944" rel="stylesheet">
-    <link href="/css/hugo-theme.css?1575509944" rel="stylesheet">
+    <link href="/css/nucleus.css?1594225917" rel="stylesheet">
+    <link href="/css/fontawesome-all.min.css?1594225917" rel="stylesheet">
+    <link href="/css/hybrid.css?1594225917" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1594225917" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1594225917" rel="stylesheet">
+    <link href="/css/auto-complete.css?1594225917" rel="stylesheet">
+    <link href="/css/atom-one-dark-reasonable.css?1594225917" rel="stylesheet">
+    <link href="/css/theme.css?1594225917" rel="stylesheet">
+    <link href="/css/hugo-theme.css?1594225917" rel="stylesheet">
     
-      <link href="/css/theme-mine.css?1575509944" rel="stylesheet">
+      <link href="/css/theme-mine.css?1594225917" rel="stylesheet">
     
 
-    <script src="/js/jquery-3.3.1.min.js?1575509944"></script>
+    <script src="/js/jquery-3.3.1.min.js?1594225917"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -298,9 +298,9 @@
 
 
 <ul>
-<li><p>From the <em>MySQL</em> dropdown choose version <em>5.7.26</em>.</p>
+<li><p>From the <em>MySQL</em> dropdown choose version <em>5.7.30</em>.</p>
 
-<p><img src="../../images/database_version.jpg?classes=border" alt="" /></p></li>
+<p><img src="../../images/database_version.png?classes=border" alt="" /></p></li>
 
 <li><p>By default Lightsail will create a strong password for you. However this password can contain characters that making copying and pasting difficult, so for this lab we&rsquo;re going to specify a password. To do this first click <em>Specify login credentials</em></p>
 
@@ -360,7 +360,16 @@
 <li><p>From the search results, select <em>AmazonS3FullAccess</em></p>
 
 <p><img src="../../images/set_permissions.png?classes=border" alt="" /></p></li>
+</ul>
 
+
+<div class="notices warning" ><p>This gives the WordPress plugin we&rsquo;re going to use full permission over all your S3 buckets, and should only be done for demo purposes. You would not want to do this in production.</p>
+
+<p><a href="https://aws.amazon.com/blogs/compute/deploying-a-highly-available-wordpress-site-on-amazon-lightsail-part-2-using-amazon-s3-with-wordpress-to-securely-deliver-media-files/" target="_blank">This blog post</a> explains how to properly configure permissions for a production envrironment.</p>
+</div>
+
+
+<ul>
 <li><p>Choose Next: Tags</p></li>
 
 <li><p>Choose Next: Review</p></li>
@@ -921,19 +930,19 @@ wp config set DB_HOST ls.rds.amazonaws.com
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1575509944"></script>
-    <script src="/js/perfect-scrollbar.min.js?1575509944"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1575509944"></script>
-    <script src="/js/jquery.sticky.js?1575509944"></script>
-    <script src="/js/featherlight.min.js?1575509944"></script>
-    <script src="/js/highlight.pack.js?1575509944"></script>
+    <script src="/js/clipboard.min.js?1594225917"></script>
+    <script src="/js/perfect-scrollbar.min.js?1594225917"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1594225917"></script>
+    <script src="/js/jquery.sticky.js?1594225917"></script>
+    <script src="/js/featherlight.min.js?1594225917"></script>
+    <script src="/js/highlight.pack.js?1594225917"></script>
     <script>hljs.initHighlightingOnLoad();</script>
-    <script src="/js/modernizr.custom-3.6.0.js?1575509944"></script>
-    <script src="/js/learn.js?1575509944"></script>
-    <script src="/js/hugo-learn.js?1575509944"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1594225917"></script>
+    <script src="/js/learn.js?1594225917"></script>
+    <script src="/js/hugo-learn.js?1594225917"></script>
 
-    <link href="/mermaid/mermaid.css?1575509944" rel="stylesheet" />
-    <script src="/mermaid/mermaid.js?1575509944"></script>
+    <link href="/mermaid/mermaid.css?1594225917" rel="stylesheet" />
+    <script src="/mermaid/mermaid.js?1594225917"></script>
     <script>
         mermaid.initialize({ startOnLoad: true });
     </script>

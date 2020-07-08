@@ -57,9 +57,9 @@ Make sure you're deploying your database into the same region as your other reso
 {{% /notice %}}
 
 
-* From the *MySQL* dropdown choose version *5.7.26*. 
+* From the *MySQL* dropdown choose version *5.7.30*. 
 
-    ![](../../images/database_version.jpg?classes=border)
+    ![](../../images/database_version.png?classes=border)
 
 * By default Lightsail will create a strong password for you. However this password can contain characters that making copying and pasting difficult, so for this lab we're going to specify a password. To do this first click *Specify login credentials* 
 
@@ -115,6 +115,10 @@ Just like we need a centralized database to store information for our WordPress 
 * From the search results, select *AmazonS3FullAccess*
 
     ![](../../images/set_permissions.png?classes=border)
+
+{{% notice warning %}}
+The *AmazonS3FullAccess* policy gives the WordPress plugin we're going to use full permission over all your S3 buckets, and should only be done for demo purposes. You would not want to do this in production. <a href="https://aws.amazon.com/blogs/compute/deploying-a-highly-available-wordpress-site-on-amazon-lightsail-part-2-using-amazon-s3-with-wordpress-to-securely-deliver-media-files/" target="_blank">This blog post</a> explains how to properly configure permissions for a production envrironment. 
+{{% /notice %}}
 
 * Choose Next: Tags
 
