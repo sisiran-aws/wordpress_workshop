@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="generator" content="Hugo 0.58.3" />
+    <meta name="generator" content="Hugo 0.74.3" />
     <meta name="description" content="Amazon Lightsail Workshop">
 <meta name="author" content="Mike Coleman">
 
@@ -12,20 +12,20 @@
     <title>Lab Guide :: Highly Available WordPress on Amazon Lightsail</title>
 
     
-    <link href="/css/nucleus.css?1594225917" rel="stylesheet">
-    <link href="/css/fontawesome-all.min.css?1594225917" rel="stylesheet">
-    <link href="/css/hybrid.css?1594225917" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1594225917" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1594225917" rel="stylesheet">
-    <link href="/css/auto-complete.css?1594225917" rel="stylesheet">
-    <link href="/css/atom-one-dark-reasonable.css?1594225917" rel="stylesheet">
-    <link href="/css/theme.css?1594225917" rel="stylesheet">
-    <link href="/css/hugo-theme.css?1594225917" rel="stylesheet">
+    <link href="/css/nucleus.css?1599700182" rel="stylesheet">
+    <link href="/css/fontawesome-all.min.css?1599700182" rel="stylesheet">
+    <link href="/css/hybrid.css?1599700182" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1599700182" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1599700182" rel="stylesheet">
+    <link href="/css/auto-complete.css?1599700182" rel="stylesheet">
+    <link href="/css/atom-one-dark-reasonable.css?1599700182" rel="stylesheet">
+    <link href="/css/theme.css?1599700182" rel="stylesheet">
+    <link href="/css/hugo-theme.css?1599700182" rel="stylesheet">
     
-      <link href="/css/theme-mine.css?1594225917" rel="stylesheet">
+      <link href="/css/theme-mine.css?1599700182" rel="stylesheet">
     
 
-    <script src="/js/jquery-3.3.1.min.js?1594225917"></script>
+    <script src="/js/jquery-3.3.1.min.js?1599700182"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -157,7 +157,7 @@
             
           
           
-            <a href='/'>HA WordPress on Lightsail</a> > Lab Guide
+            <a href='/'>Sisira on Lightsail</a> > Lab Guide
           
          
           
@@ -169,38 +169,14 @@
                     <div class="progress">
     <div class="wrapper">
 <nav id="TableOfContents">
-<ul>
-<li>
-<ul>
-<li>
-<ul>
-<li><a href="#prerequisites">Prerequisites</a></li>
-<li><a href="#deploy-your-infrastructure">Deploy your infrastructure</a>
-<ul>
-<li><a href="#deploy-your-lightsail-instance">Deploy your Lightsail instance</a></li>
-<li><a href="#deploy-the-lightsail-database">Deploy the Lightsail database</a></li>
-<li><a href="#configure-amazon-s3-to-hold-static-media-files">Configure Amazon S3 to Hold Static Media Files</a>
-<ul>
-<li><a href="#create-an-iam-user">Create an IAM User</a></li>
-<li><a href="#update-wordpress-with-the-iam-credentials">Update WordPress with the IAM Credentials</a></li>
-<li><a href="#installing-and-configuring-the-plugin">Installing and configuring the plugin</a></li>
-<li><a href="#testing-the-plugin">Testing the plugin</a></li>
-<li><a href="#connecting-to-the-lightsail-database">Connecting to the Lightsail Database</a></li>
-<li><a href="#export-the-data-from-the-local-database">Export the data from the local database</a></li>
-<li><a href="#import-the-data-into-the-lightsail-database">Import the Data into the Lightsail Database</a></li>
-<li><a href="#switching-wordpress-to-the-lightsail-database">Switching WordPress to the Lightsail Database</a></li>
-</ul></li>
-<li><a href="#scale-the-wordpress-web-servers">Scale the WordPress Web Servers</a>
-<ul>
-<li><a href="#create-a-snapshot-of-the-wordpress-server">Create a Snapshot of the WordPress Server</a></li>
-<li><a href="#create-the-load-balancer">Create the Load Balancer</a></li>
-<li><a href="#create-additional-wordpress-servers">Create Additional WordPress servers</a></li>
-<li><a href="#add-the-wordpress-servers-to-the-load-balancer">Add the WordPress Servers to the Load Balancer</a></li>
-</ul></li>
-</ul></li>
-</ul></li>
-</ul></li>
-</ul>
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#prerequisites">Prerequisites</a></li>
+        <li><a href="#deploy-your-infrastructure">Deploy your infrastructure</a></li>
+      </ul>
+    </li>
+  </ul>
 </nav>
     </div>
 </div>
@@ -226,616 +202,592 @@
 
 
 
-	
-
-<h3 id="prerequisites">Prerequisites</h3>
-
+	<h3 id="prerequisites">Prerequisites</h3>
 <ul>
-<li><p>You will need to have an AWS account with sufficient priviliges to create resources in Amazon Lightsail and create an IAM role with full S3 priviliges to complete this lab.</p></li>
-
-<li><p>You should be familiar with using a command line.</p></li>
-
-<li><p>The ability to edit files with a Linux text editor is helpful, but not mandatory</p></li>
+<li>
+<p>You will need to have an AWS account with sufficient priviliges to create resources in Amazon Lightsail and create an IAM role with full S3 priviliges to complete this lab.</p>
+</li>
+<li>
+<p>You should be familiar with using a command line.</p>
+</li>
+<li>
+<p>The ability to edit files with a Linux text editor is helpful, but not mandatory</p>
+</li>
 </ul>
-
 <h3 id="deploy-your-infrastructure">Deploy your infrastructure</h3>
-
 
 <div class="notices tip" ><p>Please create all your resources in the <em>Oregon / us-west-2</em> region</p>
 </div>
 
-
 <h4 id="deploy-your-lightsail-instance">Deploy your Lightsail instance</h4>
-
 <p>In this step you&rsquo;ll deploy a Lightsail instance running WordPress</p>
-
 <ul>
-<li><p>Log into your AWS account</p></li>
-
-<li><p>Navigate to the <a href="https://lightsail.aws.amazon.com/ls/webapp/home" target="_blank"> Lightsail home page</a></p></li>
-
-<li><p>Close any notifcations that pop up or slide out</p></li>
-
-<li><p>Click <em>Create instance</em></p></li>
-
-<li><p>Scroll down and under <em>Select a blueprint</em> click <em>OS only</em> and select <em>WordPress</em></p>
-
-<p><img src="./images/wordpress_blueprint.png?classes=border" alt="" /></p></li>
+<li>
+<p>Log into your AWS account</p>
+</li>
+<li>
+<p>Navigate to the <!-- raw HTML omitted --> Lightsail home page<!-- raw HTML omitted --></p>
+</li>
+<li>
+<p>Close any notifcations that pop up or slide out</p>
+</li>
+<li>
+<p>Click <em>Create instance</em></p>
+</li>
+<li>
+<p>Scroll down and under <em>Select a blueprint</em> click <em>OS only</em> and select <em>WordPress</em></p>
+<p><img src="./images/wordpress_blueprint.png?classes=border" alt=""></p>
+</li>
 </ul>
-
 
 <div class="notices tip" ><p>You can accept the default value for the instance size</p>
 </div>
 
-
 <ul>
-<li><p>Scroll down and under <em>Identify your instance</em> enter <em>wordpress-1</em> as the name</p>
-
-<p><img src="./images/instance_name.png?classes=border" alt="" /></p></li>
-
-<li><p>Click <em>Create instance</em></p></li>
+<li>
+<p>Scroll down and under <em>Identify your instance</em> enter <em>wordpress-1</em> as the name</p>
+<p><img src="./images/instance_name.png?classes=border" alt=""></p>
+</li>
+<li>
+<p>Click <em>Create instance</em></p>
+</li>
 </ul>
-
 <h4 id="deploy-the-lightsail-database">Deploy the Lightsail database</h4>
-
 <p>The WordPress image you deployed has a built-int database, however since we want to scale out our WordPress installation, we&rsquo;ll need to make sure we have a standalone database that our WordPress front-end servers will all connect into.</p>
-
 <p>In this section we&rsquo;ll deploy a Lightsail database. Lightsail databases are a managed database service that allow you to get away from the complexity of deploying and managing database software. Lightsail manages the underlying infrastructure and database engine, you only need to worry about creating and deploying the actual databases and tables running inside the service.</p>
-
 <ul>
-<li><p>From the <a href="https://lightsail.aws.amazon.com/ls/webapp/home/" target="_blank">Lightsail console home page</a> select <em>Databases</em> from the horizontal menu</p>
-
-<p><img src="../../images/databases-menu.jpg?classes=border" alt="" /></p></li>
-
-<li><p>Click <em>Create database</em></p>
-
-<p><img src="../../images/create-database.jpg?classes=border" alt="" /></p></li>
+<li>
+<p>From the <!-- raw HTML omitted -->Lightsail console home page<!-- raw HTML omitted --> select <em>Databases</em> from the horizontal menu</p>
+<p><img src="../../images/databases-menu.jpg?classes=border" alt=""></p>
+</li>
+<li>
+<p>Click <em>Create database</em></p>
+<p><img src="../../images/create-database.jpg?classes=border" alt=""></p>
+</li>
 </ul>
-
 
 <div class="notices tip" ><p>Make sure you&rsquo;re deploying your database into the same region as your other resources.</p>
 </div>
 
-
 <ul>
-<li><p>From the <em>MySQL</em> dropdown choose version <em>5.7.30</em>.</p>
-
-<p><img src="../../images/database_version.png?classes=border" alt="" /></p></li>
-
-<li><p>By default Lightsail will create a strong password for you. However this password can contain characters that making copying and pasting difficult, so for this lab we&rsquo;re going to specify a password. To do this first click <em>Specify login credentials</em></p>
-
-<p><img src="../../images/specify_credentials.jpg?classes=border" alt="" /></p></li>
-
-<li><p>Next, uncheck the box next to <em>Create a strong password for me</em> and enter <em>WordPress!2019</em> for the password.</p>
-
-<p><img src="../../images/database_pw.png?classes=border" alt="" /></p></li>
-
-<li><p>Because you are creating a highly available WordPress site, you&rsquo;ll need to choose the <em>High Availability</em> option under <em>Choose your database plan</em></p>
-
-<p><img src="../../images/database_plan.png?classes=border" alt="" /></p></li>
-
-<li><p>Name your database <em>wp-db</em></p>
-
-<p><img src="../../images/db_name.png?classes=border" alt="" /></p></li>
-
-<li><p>Click <em>Create database</em></p></li>
+<li>
+<p>From the <em>MySQL</em> dropdown choose version <em>5.7.30</em>.</p>
+<p><img src="../../images/database_version.png?classes=border" alt=""></p>
+</li>
+<li>
+<p>By default Lightsail will create a strong password for you. However this password can contain characters that making copying and pasting difficult, so for this lab we&rsquo;re going to specify a password. To do this first click <em>Specify login credentials</em></p>
+<p><img src="../../images/specify_credentials.jpg?classes=border" alt=""></p>
+</li>
+<li>
+<p>Next, uncheck the box next to <em>Create a strong password for me</em> and enter <em>WordPress!2019</em> for the password.</p>
+<p><img src="../../images/database_pw.png?classes=border" alt=""></p>
+</li>
+<li>
+<p>Because you are creating a highly available WordPress site, you&rsquo;ll need to choose the <em>High Availability</em> option under <em>Choose your database plan</em></p>
+<p><img src="../../images/database_plan.png?classes=border" alt=""></p>
+</li>
+<li>
+<p>Name your database <em>wp-db</em></p>
+<p><img src="../../images/db_name.png?classes=border" alt=""></p>
+</li>
+<li>
+<p>Click <em>Create database</em></p>
+</li>
 </ul>
-
 
 <div class="notices tip" ><p>It will take several minutes for the creation process to complete, so feel free to move on to the next step while this happens. You&rsquo;ll come back to the Lightsail database later in this session.</p>
 </div>
 
-
 <h4 id="configure-amazon-s3-to-hold-static-media-files">Configure Amazon S3 to Hold Static Media Files</h4>
-
 <p>Just like we need a centralized database to store information for our WordPress site, we also need a centralized place to store any media objects that WordPress will serve up. To do that we&rsquo;re going to use S3 and a WordPress plugin, Offload Media Light. In order for the plugin to be able to communicate with S3, it will need to have the correct IAM permissions. To facilitate this, you&rsquo;ll create an IAM user and supply those credentials to the plugin.</p>
-
 <h5 id="create-an-iam-user">Create an IAM User</h5>
-
 <ul>
-<li><p>Open the AWS Management Console</p></li>
-
-<li><p>Navigate to the IAM Console</p></li>
-
-<li><p>From the Dashboard, choose <em>Users</em></p>
-
-<p><img src="../../images/iam_user.png?classes=border" alt="" /></p></li>
-
-<li><p>At the top of the page, choose <em>Add user</em></p>
-
-<p><img src="../../images/iam_add_user.png?classes=border" alt="" /></p></li>
-
-<li><p>In Set user details, for <em>User name</em>, enter <em>wp-s3-user</em></p></li>
-
-<li><p>For <em>Access type</em>, select <em>Programmatic access</em></p>
-
-<p><img src="../../images/set_user_details.png?classes=border" alt="" /></p></li>
-
-<li><p>Choose <em>Next: Permissions</em></p></li>
-
-<li><p>Choose <em>Attach existing policy directly</em></p></li>
-
-<li><p>In the <em>Filter polices</em> field, enter <em>S3</em></p></li>
-
-<li><p>From the search results, select <em>AmazonS3FullAccess</em></p>
-
-<p><img src="../../images/set_permissions.png?classes=border" alt="" /></p></li>
+<li>
+<p>Open the AWS Management Console</p>
+</li>
+<li>
+<p>Navigate to the IAM Console</p>
+</li>
+<li>
+<p>From the Dashboard, choose <em>Users</em></p>
+<p><img src="../../images/iam_user.png?classes=border" alt=""></p>
+</li>
+<li>
+<p>At the top of the page, choose <em>Add user</em></p>
+<p><img src="../../images/iam_add_user.png?classes=border" alt=""></p>
+</li>
+<li>
+<p>In Set user details, for <em>User name</em>, enter <em>wp-s3-user</em></p>
+</li>
+<li>
+<p>For <em>Access type</em>, select <em>Programmatic access</em></p>
+<p><img src="../../images/set_user_details.png?classes=border" alt=""></p>
+</li>
+<li>
+<p>Choose <em>Next: Permissions</em></p>
+</li>
+<li>
+<p>Choose <em>Attach existing policy directly</em></p>
+</li>
+<li>
+<p>In the <em>Filter polices</em> field, enter <em>S3</em></p>
+</li>
+<li>
+<p>From the search results, select <em>AmazonS3FullAccess</em></p>
+<p><img src="../../images/set_permissions.png?classes=border" alt=""></p>
+</li>
 </ul>
 
-
-<div class="notices warning" ><p>This gives the WordPress plugin we&rsquo;re going to use full permission over all your S3 buckets, and should only be done for demo purposes. You would not want to do this in production.</p>
-
-<p><a href="https://aws.amazon.com/blogs/compute/deploying-a-highly-available-wordpress-site-on-amazon-lightsail-part-2-using-amazon-s3-with-wordpress-to-securely-deliver-media-files/" target="_blank">This blog post</a> explains how to properly configure permissions for a production envrironment.</p>
+<div class="notices warning" ><p>The <em>AmazonS3FullAccess</em> policy gives the WordPress plugin we&rsquo;re going to use full permission over all your S3 buckets, and should only be done for demo purposes. You would not want to do this in production. <!-- raw HTML omitted -->This blog post<!-- raw HTML omitted --> explains how to properly configure permissions for a production envrironment.</p>
 </div>
 
-
 <ul>
-<li><p>Choose Next: Tags</p></li>
-
-<li><p>Choose Next: Review</p></li>
-
-<li><p>Choose Create user</p></li>
+<li>
+<p>Choose Next: Tags</p>
+</li>
+<li>
+<p>Choose Next: Review</p>
+</li>
+<li>
+<p>Choose Create user</p>
+</li>
 </ul>
-
 <p>The page displays the credentials you need to configure the WP Offload Media Lite plugin</p>
-
 <ul>
-<li><p>Under Secret access key, select <em>Show</em></p>
-
-<p><img src="../../images/show_secret_key.png?classes=border" alt="" /></p></li>
-
-<li><p>Save the Access Key ID and Secret Access Key for reference.</p></li>
+<li>
+<p>Under Secret access key, select <em>Show</em></p>
+<p><img src="../../images/show_secret_key.png?classes=border" alt=""></p>
+</li>
+<li>
+<p>Save the Access Key ID and Secret Access Key for reference.</p>
+</li>
 </ul>
-
 
 <div class="notices tip" ><p>To download a CSV file with the key information, choose the Download .csv file button.</p>
 </div>
 
 
-
 <div class="notices warning" ><p>If you navigate away from this screen, you can’t obtain the credentials again and need to create a new user. Be sure to either download the CSV or record both values in another document. Treat these credentials the same way you’d treat any sensitive username/password pair.</p>
 </div>
 
-
 <h5 id="update-wordpress-with-the-iam-credentials">Update WordPress with the IAM Credentials</h5>
-
 <p>Now you need to store the IAM credentials in your WordPress configfuration file so that the Offload Media plug-in use them to access the S3 bucket.</p>
-
 <ul>
-<li><p>Return to the Lightsail home page</p></li>
-
-<li><p>Start a terminal session into your WordPress instance by clicking the terminal icon on the instances&rsquo; card</p>
-
-<p><img src="../../images/terminal_icon.png?classes=border" alt="" /></p>
-
+<li>
+<p>Return to the Lightsail home page</p>
+</li>
+<li>
+<p>Start a terminal session into your WordPress instance by clicking the terminal icon on the instances&rsquo; card</p>
+<p><img src="../../images/terminal_icon.png?classes=border" alt=""></p>
 <p>In the terminal prompt for your WordPress instance, set two environment variables (ACCESS_KEY and SECRET_KEY that contain the credentials for your IAM user.</p>
-
 <p>To set the environment variables, substitute the values for your IAM user’s access key and secret key into the following lines and enter each command one at a time at the terminal prompt:</p>
+<pre><code>  ACCESS_KEY=&lt;Your access key&gt;
 
-<pre><code>ACCESS_KEY=&lt;Your access key&gt;
-
-SECRET_KEY=&lt;Your secret key&gt;
-</code></pre></li>
-
-<li><p>The next step is to update your WordPress configuration file (wp-config) with the credentials.</p>
-
+  SECRET_KEY=&lt;Your secret key&gt;
+</code></pre>
+</li>
+<li>
+<p>The next step is to update your WordPress configuration file (wp-config) with the credentials.</p>
 <p>Copy and paste the following command:</p>
-
-<pre><code>cat &lt;&lt;EOT &gt;&gt; credfile.txt
-define( 'AS3CF_SETTINGS', serialize( array (
-'provider' =&gt; 'aws',
-'access-key-id' =&gt; '$ACCESS_KEY',
-'secret-access-key' =&gt; '$SECRET_KEY',
-) ) );
-EOT
+<pre><code>  cat &lt;&lt;EOT &gt;&gt; credfile.txt
+  define( 'AS3CF_SETTINGS', serialize( array (
+  'provider' =&gt; 'aws',
+  'access-key-id' =&gt; '$ACCESS_KEY',
+  'secret-access-key' =&gt; '$SECRET_KEY',
+  ) ) );
+  EOT
 </code></pre>
-
-<p>This command creates a file with the credentials to insert into the configuration file.</p></li>
-
-<li><p>Next use the <em>sed</em> command to insert the credential information into the <em>wp-config</em> file</p>
-
+<p>This command creates a file with the credentials to insert into the configuration file.</p>
+</li>
+<li>
+<p>Next use the <em>sed</em> command to insert the credential information into the <em>wp-config</em> file</p>
 <p>Copy and paste the following <em>sed</em> command:</p>
-
-<pre><code>sed -i &quot;/define( 'WP_DEBUG', false );/r credfile.txt&quot; \
-/home/bitnami/apps/wordpress/htdocs/wp-config.php
+<pre><code>  sed -i &quot;/define( 'WP_DEBUG', false );/r credfile.txt&quot; \
+  /home/bitnami/apps/wordpress/htdocs/wp-config.php
 </code></pre>
-
-<p>This command inserts the temporary file you created into the WordPress configuration file.</p></li>
-
-<li><p>The sed command changes the permissions on the WordPress configuration file, so you&rsquo;ll need to use <em>chown</em> to reset them to the appropriate values</p>
-
+<p>This command inserts the temporary file you created into the WordPress configuration file.</p>
+</li>
+<li>
+<p>The sed command changes the permissions on the WordPress configuration file, so you&rsquo;ll need to use <em>chown</em> to reset them to the appropriate values</p>
 <p>Copy and paste the following code:</p>
-
-<pre><code>sudo chown bitnami:daemon /home/bitnami/apps/wordpress/htdocs/wp-config.php
-</code></pre></li>
-
-<li><p>Restart the services on the instance by entering the following command:</p>
-
-<pre><code>sudo /opt/bitnami/ctlscript.sh restart
-</code></pre></li>
+<pre><code>  sudo chown bitnami:daemon /home/bitnami/apps/wordpress/htdocs/wp-config.php
+</code></pre>
+</li>
+<li>
+<p>Restart the services on the instance by entering the following command:</p>
+<pre><code>  sudo /opt/bitnami/ctlscript.sh restart
+</code></pre>
+</li>
 </ul>
-
 <p>After the services restart, your WordPress instance is configured to use the IAM credentials and you are ready to configure the WP Offload Media Lite plugin.</p>
-
 <h5 id="installing-and-configuring-the-plugin">Installing and configuring the plugin</h5>
-
 <p>Now that the configuration file holds your credentials, you can move on to installing and configuring the plugin.</p>
-
 <p>The next step requires you to log in to the WordPress dashboard, and to do that you need the Bitnami application password for your WordPress site. It’s stored at /home/bitnami/bitnami_application_password.</p>
-
 <ul>
-<li><p>Enter the following cat command in the terminal to display the password value and copy it down.</p>
-
-<pre><code>cat /home/bitnami/bitnami_application_password
-</code></pre></li>
-
-<li><p>Log in to the administrator control panel of your WordPress site.</p>
-
-<p>You can access the WordPress login screen at <a href="http://SiteIpAddress/wp-admin">http://SiteIpAddress/wp-admin</a>, where SiteIpAddress is the IP address of your WordPress instance, which you can find on the card for your instance in the Lightsail console.</p>
-
-<p><img src="../../images/ip.png?classes=border" alt="" /></p>
-
-<p>For example, the instance in the preceding screenshot has the IP address 192.0.2.0; you can access the login screen using <a href="http://192.0.2.0/wp-admin">http://192.0.2.0/wp-admin</a>.</p>
-
-<p>For login credentials, the default user name is <strong><em>user</em></strong>.</p>
-
-<p>For the password, use the Bitnami application password you recorded previously.</p></li>
+<li>
+<p>Enter the following cat command in the terminal to display the password value and copy it down.</p>
+<pre><code>  cat /home/bitnami/bitnami_application_password
+</code></pre>
+</li>
+<li>
+<p>Log in to the administrator control panel of your WordPress site.</p>
+<p>You can access the WordPress login screen at http://SiteIpAddress/wp-admin, where SiteIpAddress is the IP address of your WordPress instance, which you can find on the card for your instance in the Lightsail console.</p>
+<p><img src="../../images/ip.png?classes=border" alt=""></p>
+<p>For example, the instance in the preceding screenshot has the IP address 192.0.2.0; you can access the login screen using http://192.0.2.0/wp-admin.</p>
+<p>For login credentials, the default user name is <em><strong>user</strong></em>.</p>
+<p>For the password, use the Bitnami application password you recorded previously.</p>
+</li>
 </ul>
-
 <p>After signing in, install and configure the WP Offload Media Lite plugin by following these steps:</p>
-
 <ul>
-<li><p>Under Plugins, choose Add New.</p>
-
-<p><img src="../../images/add_new.png?classes=border" alt="" /></p></li>
-
-<li><p>On the Add New pane, in the Keyword field, enter WP media offload</p>
-
-<p><img src="../../images/plugin_filter.png?classes=border" alt="" /></p></li>
-
-<li><p>The results display the WP Offload Media Lite plugin.</p></li>
-
-<li><p>On the card for WP Offload Media Light click <em>Install Now</em></p>
-
-<p><img src="../../images/plugin_card.png?classes=border" alt="" /></p></li>
-
-<li><p>After a few seconds, the Install Now button changes to Activate.</p>
-
+<li>
+<p>Under Plugins, choose Add New.</p>
+<p><img src="../../images/add_new.png?classes=border" alt=""></p>
+</li>
+<li>
+<p>On the Add New pane, in the Keyword field, enter WP media offload</p>
+<p><img src="../../images/plugin_filter.png?classes=border" alt=""></p>
+</li>
+<li>
+<p>The results display the WP Offload Media Lite plugin.</p>
+</li>
+<li>
+<p>On the card for WP Offload Media Light click <em>Install Now</em></p>
+<p><img src="../../images/plugin_card.png?classes=border" alt=""></p>
+</li>
+<li>
+<p>After a few seconds, the Install Now button changes to Activate.</p>
 <p>Click  <em>Activate</em></p>
-
-<p>The main WordPress plugins screen opens.</p></li>
-
-<li><p>Scroll to the bottom of the plugins list and find WP Offload Media Lite.</p></li>
-
-<li><p>Click <em>Settings</em></p></li>
-
-<li><p>You now need to create an S3 bucket to hold your media files. An S3 bucket is a unique container that stores all your WordPress files.</p>
-
+<p>The main WordPress plugins screen opens.</p>
+</li>
+<li>
+<p>Scroll to the bottom of the plugins list and find WP Offload Media Lite.</p>
+</li>
+<li>
+<p>Click <em>Settings</em></p>
+</li>
+<li>
+<p>You now need to create an S3 bucket to hold your media files. An S3 bucket is a unique container that stores all your WordPress files.</p>
 <p>Click <em>Create new bucket</em></p>
-
-<p><img src="../../images/create_new_bucket.png?classes=border" alt="" /></p></li>
-
-<li><p>For Region, select <em>US West (Oregon)</em></p></li>
-
-<li><p>Enter a name for your S3 bucket</p></li>
-
-<li><p>Click <em>Create New Bucket</em></p></li>
+<p><img src="../../images/create_new_bucket.png?classes=border" alt=""></p>
+</li>
+<li>
+<p>For Region, select <em>US West (Oregon)</em></p>
+</li>
+<li>
+<p>Enter a name for your S3 bucket</p>
+</li>
+<li>
+<p>Click <em>Create New Bucket</em></p>
+</li>
 </ul>
-
 <p>Your WordPress website is now configured to upload files to the S3 bucket managed by the WP Offload Media Lite plugin.</p>
-
-<hr>
-
-<p><strong><em>Troubleshooting</em></strong></p>
-
+<!-- raw HTML omitted -->
 <p>If you received an error indicating that access to your S3 was denied, check the public permissions for S3 by following these steps:</p>
-
 <ul>
-<li><p>Open the S3 console</p></li>
-
-<li><p>From the menu, choose <em>Block public access (account settings)</em></p></li>
-
-<li><p>Choose <em>Edit</em></p></li>
-
-<li><p>Clear <em>Block all public access</em></p></li>
-
-<li><p>Choose <em>Save</em></p></li>
-
-<li><p>In the text box, enter <em>confirm</em></p></li>
-
-<li><p>Click <em>Confirm</em></p>
-
-<p>This setting ensures that none of your buckets are publicly accessible. If you clear the setting, make sure to verify that permissions are set correctly on your buckets.</p></li>
-
-<li><p>Return to the WordPress console, and refresh the Offload Media Lite page where ou should no longer see the error.</p></li>
+<li>
+<p>Open the S3 console</p>
+</li>
+<li>
+<p>From the menu, choose <em>Block public access (account settings)</em></p>
+</li>
+<li>
+<p>Choose <em>Edit</em></p>
+</li>
+<li>
+<p>Clear <em>Block all public access</em></p>
+</li>
+<li>
+<p>Choose <em>Save</em></p>
+</li>
+<li>
+<p>In the text box, enter <em>confirm</em></p>
+</li>
+<li>
+<p>Click <em>Confirm</em></p>
+<p>This setting ensures that none of your buckets are publicly accessible. If you clear the setting, make sure to verify that permissions are set correctly on your buckets.</p>
+</li>
+<li>
+<p>Return to the WordPress console, and refresh the Offload Media Lite page where ou should no longer see the error.</p>
+</li>
 </ul>
-
-<hr>
-
+<!-- raw HTML omitted -->
 <ul>
 <li>Scroll down and click <em>Save Changes</em></li>
 </ul>
-
 <h5 id="testing-the-plugin">Testing the plugin</h5>
-
 <p>To confirm that the plugin is working correctly, upload a new media file and verify it’s being served from the S3 bucket.</p>
-
 <ul>
-<li><p>From the WordPress console, choose <em>Media</em> then <em>Add new</em></p>
-
-<p><img src="../../images/media_add_new.png?classes=border" alt="" /></p></li>
-
-<li><p>Upload a file by either dragging and dropping a file into the field, or choosing Select and selecting a file from your local machine</p></li>
-
-<li><p>After the file uploads, choose <em>Edit</em> to the right of the uploaded file</p></li>
-
-<li><p>In the Edit Media pane, the File URL should point to your S3 bucket. See the following screenshot</p>
-
-<p><img src="../../images/file_url.png?classes=border" alt="" /></p></li>
-
-<li><p>Copy that URL into a browser and confirm your file loads correctly</p></li>
+<li>
+<p>From the WordPress console, choose <em>Media</em> then <em>Add new</em></p>
+<p><img src="../../images/media_add_new.png?classes=border" alt=""></p>
+</li>
+<li>
+<p>Upload a file by either dragging and dropping a file into the field, or choosing Select and selecting a file from your local machine</p>
+</li>
+<li>
+<p>After the file uploads, choose <em>Edit</em> to the right of the uploaded file</p>
+</li>
+<li>
+<p>In the Edit Media pane, the File URL should point to your S3 bucket. See the following screenshot</p>
+<p><img src="../../images/file_url.png?classes=border" alt=""></p>
+</li>
+<li>
+<p>Copy that URL into a browser and confirm your file loads correctly</p>
+</li>
 </ul>
-
 <p>Now any media files uploaded to your WordPress site will be stored in a centralized S3 bucket instead of on the instance&rsquo;s local file system</p>
-
 <h5 id="connecting-to-the-lightsail-database">Connecting to the Lightsail Database</h5>
-
 <p>The next step is to configure WordPress to use the Lightsail database to store its information (as opposed to the database on the WordPress instance). This will allow mulitiple WordPress servers to share one database, enabling a highly availble setup.</p>
-
 <p>In order to use the Lightsail database you&rsquo;ll need to export the contents of the local database, then import them into the Lightsail database. After that you will update the WordPress configuration file to point to your Lightsail database</p>
-
 <h5 id="export-the-data-from-the-local-database">Export the data from the local database</h5>
-
 <ul>
-<li><p>Return to the database section of the Lightsail database and click on the name of the database you created earlier</p></li>
-
-<li><p>Scroll down to the <em>Connection details</em> section.</p></li>
-
-<li><p>Click <em>Show</em> next to the password.</p>
-
-<p>Notice there are values for the endpoint (the database host), username, and passsword.</p></li>
-
-<li><p>Return to the terminal session for your WordPress instance</p></li>
-
-<li><p>You will now create some environment variables to help in the data migration</p>
-
+<li>
+<p>Return to the database section of the Lightsail database and click on the name of the database you created earlier</p>
+</li>
+<li>
+<p>Scroll down to the <em>Connection details</em> section.</p>
+</li>
+<li>
+<p>Click <em>Show</em> next to the password.</p>
+<p>Notice there are values for the endpoint (the database host), username, and passsword.</p>
+</li>
+<li>
+<p>Return to the terminal session for your WordPress instance</p>
+</li>
+<li>
+<p>You will now create some environment variables to help in the data migration</p>
 <p>The first variable will hold the datbase username. Copy and paste the line below into the terminal window</p>
-
-<pre><code>LSDB_USERNAME=dbmasteruser
+<pre><code>  LSDB_USERNAME=dbmasteruser
 </code></pre>
-
 <p>Next copy the <em>Endpoint</em> value from the connection details screen of your database, enter the command below in the terminal windows using the endpoint value for your host</p>
-
-<pre><code>LSDB_ENDPOINT=&lt;Your database endpoint&gt;
+<pre><code>  LSDB_ENDPOINT=&lt;Your database endpoint&gt;
 </code></pre>
-
 <p>For instance</p>
-
-<pre><code>LSDB_ENDPOINT=ls-029f7ef6.us-west-2.rds.amazonaws.com
-</code></pre></li>
-
-<li><p>Retrieve the <strong><em>local database password</em></strong> by copying and pasting the command below</p>
-
-<pre><code>cat /home/bitnami/bitnami_application_password
+<pre><code>  LSDB_ENDPOINT=ls-029f7ef6.us-west-2.rds.amazonaws.com
 </code></pre>
-
-<p>You will need to enter this value in the next step</p></li>
-
-<li><p>Use the <em>mysqldump</em> command to export the contents of the local database into a file. Copy and paste the command below</p>
-
-<pre><code>mysqldump \
--u root \
---databases bitnami_wordpress \
---single-transaction \
---order-by-primary \
--p &gt; dump.sql
-</code></pre></li>
-
-<li><p>When prompted enter the <strong><em>local database password</em></strong> that you just displayed to the terminal using the <em>cat</em> command</p></li>
+</li>
+<li>
+<p>Retrieve the <em><strong>local database password</strong></em> by copying and pasting the command below</p>
+<pre><code>  cat /home/bitnami/bitnami_application_password
+</code></pre>
+<p>You will need to enter this value in the next step</p>
+</li>
+<li>
+<p>Use the <em>mysqldump</em> command to export the contents of the local database into a file. Copy and paste the command below</p>
+<pre><code>  mysqldump \
+  -u root \
+  --databases bitnami_wordpress \
+  --single-transaction \
+  --order-by-primary \
+  -p &gt; dump.sql
+</code></pre>
+</li>
+<li>
+<p>When prompted enter the <em><strong>local database password</strong></em> that you just displayed to the terminal using the <em>cat</em> command</p>
+</li>
 </ul>
-
 
 <div class="notices tip" ><p>The password will not display when you enter it, and there will be no output from the mysqldump command</p>
 </div>
 
-
 <h5 id="import-the-data-into-the-lightsail-database">Import the Data into the Lightsail Database</h5>
-
 <p>You will now use the <em>mysql</em> command to import the data into your Lightsail database.</p>
-
 <ul>
-<li><p>Copy and paste the command below to import the file you created with <em>mysqldump</em> into your Lightsail database</p>
-
-<pre><code>cat dump.sql | mysql \
---user $LSDB_USERNAME \
---host $LSDB_ENDPOINT \
--p
-</code></pre></li>
-
-<li><p>When prompted enter the <strong><em>password for the Lightsail database</em></strong> which can be found under the <em>Connection settings</em> section of your Lightsail database&rsquo;s details page</p></li>
-
-<li><p>Copy and paste the command below to ensure the database structure was imported correctly</p>
-
-<pre><code>echo 'use bitnami_wordpress; show tables' | \
-mysql \
---user $LSDB_USERNAME \
---host $LSDB_ENDPOINT \
--p
-</code></pre></li>
-
-<li><p>When prompted once again enter the <strong><em>Lightsail database password</em></strong></p>
-
+<li>
+<p>Copy and paste the command below to import the file you created with <em>mysqldump</em> into your Lightsail database</p>
+<pre><code>  cat dump.sql | mysql \
+  --user $LSDB_USERNAME \
+  --host $LSDB_ENDPOINT \
+  -p
+</code></pre>
+</li>
+<li>
+<p>When prompted enter the <em><strong>password for the Lightsail database</strong></em> which can be found under the <em>Connection settings</em> section of your Lightsail database&rsquo;s details page</p>
+</li>
+<li>
+<p>Copy and paste the command below to ensure the database structure was imported correctly</p>
+<pre><code>  echo 'use bitnami_wordpress; show tables' | \
+  mysql \
+  --user $LSDB_USERNAME \
+  --host $LSDB_ENDPOINT \
+  -p
+</code></pre>
+</li>
+<li>
+<p>When prompted once again enter the <em><strong>Lightsail database password</strong></em></p>
 <p>You should see the following output indicating that the data structure was successfully imported</p>
-
-<pre><code>Tables_in_bitnami_wordpress
-wp_as3cf_items
-wp_commentmeta
-wp_comments
-wp_links
-wp_options
-wp_postmeta
-wp_posts
-wp_term_relationships
-wp_term_taxonomy
-wp_termmeta
-wp_terms
-wp_usermeta
-wp_users
-</code></pre></li>
+<pre><code>  Tables_in_bitnami_wordpress
+  wp_as3cf_items
+  wp_commentmeta
+  wp_comments
+  wp_links
+  wp_options
+  wp_postmeta
+  wp_posts
+  wp_term_relationships
+  wp_term_taxonomy
+  wp_termmeta
+  wp_terms
+  wp_usermeta
+  wp_users
+</code></pre>
+</li>
 </ul>
-
 <h5 id="switching-wordpress-to-the-lightsail-database">Switching WordPress to the Lightsail Database</h5>
-
 <p>The final step is to edit the WordPress condfig file (<em>wp-config.php</em>) to point to the Lightsail database. To do this you&rsquo;ll use the <em>wp-cli</em> command line tool to supply the endpoint, username, and password values for your Lightsail database</p>
-
 <ul>
-<li><p>Copy and paste each of the following commands one at a time subsitutituting the value found under <em>Connection settings</em> on the details page of your Lightsail database</p>
+<li>
+<p>Copy and paste each of the following commands one at a time subsitutituting the value found under <em>Connection settings</em> on the details page of your Lightsail database</p>
+<pre><code>  wp config set DB_USER &lt;UserName&gt;
 
-<pre><code>wp config set DB_USER &lt;UserName&gt;
+  wp config set DB_PASSWORD &lt;Password&gt;
 
-wp config set DB_PASSWORD &lt;Password&gt;
-
-wp config set DB_HOST &lt;Endpoint&gt;
+  wp config set DB_HOST &lt;Endpoint&gt;
 </code></pre>
-
 <p>For example:</p>
+<pre><code>  wp config set DB_USER dbmasteruser
 
-<pre><code>wp config set DB_USER dbmasteruser
+  wp config set DB_PASSWORD ‘WordPress!2019’
 
-wp config set DB_PASSWORD ‘WordPress!2019’
-
-wp config set DB_HOST ls.rds.amazonaws.com
+  wp config set DB_HOST ls.rds.amazonaws.com
 </code></pre>
-
-<p>You should receive a success message after each entry</p></li>
+<p>You should receive a success message after each entry</p>
+</li>
 </ul>
-
 
 <div class="notices tip" ><p>To avoid issues with any special characters the password may contain, make sure to wrap the password value in single quotes (‘).</p>
 </div>
 
-
 <ul>
-<li><p>Use the <em>wp config list</em> command to ensure that everything looks correct</p>
-
-<pre><code>wp config list
+<li>
+<p>Use the <em>wp config list</em> command to ensure that everything looks correct</p>
+<pre><code>  wp config list
 </code></pre>
-
 <p>The output should look similar to this</p>
-
-<pre><code>+------------------+-----------------------------------------------------------+----------+
-| name             | value                                                     | type     |
-+------------------+-----------------------------------------------------------+----------+
-| table_prefix     | wp_                                                       | variable |
-| DB_NAME          | bitnami_wordpress                                         | constant |
-| DB_USER          | dbmasteruser                                              | constant |
-| DB_PASSWORD      | WordPress!2019                                            | constant |
-| DB_HOST          | ls-029f7ef68358e2935.us-west-2.rds.amazonaws.com          |          |
-&lt;output truncated&gt; 
-</code></pre></li>
-
-<li><p>Copy and paste the command below to restart the WordPress server</p>
-
-<pre><code>sudo /opt/bitnami/ctlscript.sh restart
-</code></pre></li>
-
-<li><p>Once the command completes wait 60 seconds and navigate to the IP address of your WordPress server to ensure it&rsquo;s still operating properly</p></li>
+<pre><code>  +------------------+-----------------------------------------------------------+----------+
+  | name             | value                                                     | type     |
+  +------------------+-----------------------------------------------------------+----------+
+  | table_prefix     | wp_                                                       | variable |
+  | DB_NAME          | bitnami_wordpress                                         | constant |
+  | DB_USER          | dbmasteruser                                              | constant |
+  | DB_PASSWORD      | WordPress!2019                                            | constant |
+  | DB_HOST          | ls-029f7ef68358e2935.us-west-2.rds.amazonaws.com          |          |
+  &lt;output truncated&gt; 
+</code></pre>
+</li>
+<li>
+<p>Copy and paste the command below to restart the WordPress server</p>
+<pre><code>  sudo /opt/bitnami/ctlscript.sh restart
+</code></pre>
+</li>
+<li>
+<p>Once the command completes wait 60 seconds and navigate to the IP address of your WordPress server to ensure it&rsquo;s still operating properly</p>
+</li>
 </ul>
-
 <h4 id="scale-the-wordpress-web-servers">Scale the WordPress Web Servers</h4>
-
 <p>The final step is to create multiple copies of your WordPress web server, and place them behind a Lightsail load balancer. This will ensure that if one of your web servers was to fail you still have other servers capable of servicing client requests. In this lab you&rsquo;ll add two additional servers (for a total of 3).</p>
-
 <h5 id="create-a-snapshot-of-the-wordpress-server">Create a Snapshot of the WordPress Server</h5>
-
 <p>To create the additional servers you will create a snapshot of your existing server. A snapshot is a point-in-time copy of an isntances disk that can be used to create additional identical servers.</p>
-
 <ul>
-<li><p>Return to the Lightsail home page</p></li>
-
-<li><p>Click on the name of your WordPress server</p></li>
-
-<li><p>Click on <em>Snapshots</em> from the menu</p></li>
-
-<li><p>Click <em>+ Create snapshot</em> under <em>Manual snapshots</em></p></li>
-
-<li><p>Click <em>Create</em> (you can leave the name the default)</p></li>
+<li>
+<p>Return to the Lightsail home page</p>
+</li>
+<li>
+<p>Click on the name of your WordPress server</p>
+</li>
+<li>
+<p>Click on <em>Snapshots</em> from the menu</p>
+</li>
+<li>
+<p>Click <em>+ Create snapshot</em> under <em>Manual snapshots</em></p>
+</li>
+<li>
+<p>Click <em>Create</em> (you can leave the name the default)</p>
+</li>
 </ul>
-
 <p>It will take a few minutes for the snapshot to finish. In the interim you can deploy your load balancer</p>
-
 <h5 id="create-the-load-balancer">Create the Load Balancer</h5>
-
 <ul>
-<li><p>Return to the Lightsail home page</p></li>
-
-<li><p>Click on <em>Networking</em> from the menu</p></li>
-
-<li><p>Click on <em>Create Load Balancer</em></p></li>
-
-<li><p>Give the load balancer any name you wish</p></li>
-
-<li><p>Click <em>Create load balancer</em></p></li>
-
-<li><p>Return to the Lightsail home page</p></li>
+<li>
+<p>Return to the Lightsail home page</p>
+</li>
+<li>
+<p>Click on <em>Networking</em> from the menu</p>
+</li>
+<li>
+<p>Click on <em>Create Load Balancer</em></p>
+</li>
+<li>
+<p>Give the load balancer any name you wish</p>
+</li>
+<li>
+<p>Click <em>Create load balancer</em></p>
+</li>
+<li>
+<p>Return to the Lightsail home page</p>
+</li>
 </ul>
-
 <h5 id="create-additional-wordpress-servers">Create Additional WordPress servers</h5>
-
 <ul>
-<li><p>From the Lightsail home page click <em>Snapshots</em></p>
-
+<li>
+<p>From the Lightsail home page click <em>Snapshots</em></p>
 <p>Most likely Lightsail will still be creating the snapshot, wait until it completes</p>
-
-<p><img src="../../images/snapshotting.png?classes=border" alt="" /></p></li>
-
-<li><p>When the snapshot completes click the carat and then the 3 dot menu and select <em>Create new instance</em></p>
-
-<p><img src="../../images/create_new_instance.png?classes=border" alt="" /></p></li>
-
-<li><p>Scroll to the bottom and name the instance <em>WordPress-2</em></p></li>
-
-<li><p>Using the same process create a third instance and name it <em>WordPress-3</em></p></li>
-
-<li><p>Wait until the two newly created instances have a status of <em>Running</em></p>
-
-<p><img src="../../images/running.png?classes=border" alt="" /></p></li>
+<p><img src="../../images/snapshotting.png?classes=border" alt=""></p>
+</li>
+<li>
+<p>When the snapshot completes click the carat and then the 3 dot menu and select <em>Create new instance</em></p>
+<p><img src="../../images/create_new_instance.png?classes=border" alt=""></p>
+</li>
+<li>
+<p>Scroll to the bottom and name the instance <em>WordPress-2</em></p>
+</li>
+<li>
+<p>Using the same process create a third instance and name it <em>WordPress-3</em></p>
+</li>
+<li>
+<p>Wait until the two newly created instances have a status of <em>Running</em></p>
+<p><img src="../../images/running.png?classes=border" alt=""></p>
+</li>
 </ul>
-
 <h5 id="add-the-wordpress-servers-to-the-load-balancer">Add the WordPress Servers to the Load Balancer</h5>
-
 <p>The final step is to add all three instances to the load balancer you created earlier.</p>
-
 <ul>
-<li><p>Return to the Lightsail home page</p></li>
-
-<li><p>Click on networking</p></li>
-
-<li><p>Click on the name of the load balancer you created</p></li>
-
-<li><p>Click the drop down arrow in the box under <em>Target instances</em> and select <em>WordPress-1</em> from the list</p></li>
-
-<li><p>Click <em>Attach another</em></p>
-
-<p><img src="../../images/attach_another.png?classes=border" alt="" /></p></li>
-
-<li><p>Click the down arrow and select <em>WordPress-2</em></p></li>
-
-<li><p>Click <em>Attach</em></p></li>
-
-<li><p>Repeat those steps again and attach <em>WordPress-3</em></p>
-
+<li>
+<p>Return to the Lightsail home page</p>
+</li>
+<li>
+<p>Click on networking</p>
+</li>
+<li>
+<p>Click on the name of the load balancer you created</p>
+</li>
+<li>
+<p>Click the drop down arrow in the box under <em>Target instances</em> and select <em>WordPress-1</em> from the list</p>
+</li>
+<li>
+<p>Click <em>Attach another</em></p>
+<p><img src="../../images/attach_another.png?classes=border" alt=""></p>
+</li>
+<li>
+<p>Click the down arrow and select <em>WordPress-2</em></p>
+</li>
+<li>
+<p>Click <em>Attach</em></p>
+</li>
+<li>
+<p>Repeat those steps again and attach <em>WordPress-3</em></p>
 <p>After a couple of minutes all three servers should report a health check status of <em>Passed</em></p>
-
-<p><img src="../../images/health_check.png?classes=border" alt="" /></p></li>
-
-<li><p>Scroll to the top of the page and copy the <em>DNS name</em> of the load balancer</p>
-
-<p><img src="../../images/lb_dns_name.png?classes=border" alt="" /></p></li>
-
-<li><p>Navigate the load balancer&rsquo;s DNS name in your web browser and ensure that you can access your WordPress site</p></li>
+<p><img src="../../images/health_check.png?classes=border" alt=""></p>
+</li>
+<li>
+<p>Scroll to the top of the page and copy the <em>DNS name</em> of the load balancer</p>
+<p><img src="../../images/lb_dns_name.png?classes=border" alt=""></p>
+</li>
+<li>
+<p>Navigate the load balancer&rsquo;s DNS name in your web browser and ensure that you can access your WordPress site</p>
+</li>
 </ul>
-
 <p>That&rsquo;s all - you have created a highly-available WordPress site complete with 3 instances, highly available database, and a load balancer.</p>
 
 
@@ -930,19 +882,19 @@ wp config set DB_HOST ls.rds.amazonaws.com
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1594225917"></script>
-    <script src="/js/perfect-scrollbar.min.js?1594225917"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1594225917"></script>
-    <script src="/js/jquery.sticky.js?1594225917"></script>
-    <script src="/js/featherlight.min.js?1594225917"></script>
-    <script src="/js/highlight.pack.js?1594225917"></script>
+    <script src="/js/clipboard.min.js?1599700182"></script>
+    <script src="/js/perfect-scrollbar.min.js?1599700182"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1599700182"></script>
+    <script src="/js/jquery.sticky.js?1599700182"></script>
+    <script src="/js/featherlight.min.js?1599700182"></script>
+    <script src="/js/highlight.pack.js?1599700182"></script>
     <script>hljs.initHighlightingOnLoad();</script>
-    <script src="/js/modernizr.custom-3.6.0.js?1594225917"></script>
-    <script src="/js/learn.js?1594225917"></script>
-    <script src="/js/hugo-learn.js?1594225917"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1599700182"></script>
+    <script src="/js/learn.js?1599700182"></script>
+    <script src="/js/hugo-learn.js?1599700182"></script>
 
-    <link href="/mermaid/mermaid.css?1594225917" rel="stylesheet" />
-    <script src="/mermaid/mermaid.js?1594225917"></script>
+    <link href="/mermaid/mermaid.css?1599700182" rel="stylesheet" />
+    <script src="/mermaid/mermaid.js?1599700182"></script>
     <script>
         mermaid.initialize({ startOnLoad: true });
     </script>
