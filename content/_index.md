@@ -1,5 +1,5 @@
 ---
-title: "HA WordPress on Lightsail"
+title: "Sisira on Lightsail"
 chapter: true
 weight: 1
 ---
@@ -8,5 +8,3 @@ weight: 1
 
 
 # High Availabilty WordPress on Amazon Lightsail
-
-
